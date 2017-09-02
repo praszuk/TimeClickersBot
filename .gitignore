@@ -1,0 +1,9 @@
+#All files starting name with .
+.*
+!.gitignore
+#All file ending with ~
+*~
+#cache files
+__pycache__
+
+*.pyc
