@@ -12,6 +12,14 @@ app 1280x768 windowed moved to blocking by side and upper panel
 first pixel of game(65,52)
 last pixel of game(1344,819)
 
+settings in game:
+- Simplified Notation (Default)
+- Screen Shake OFF
+- Custom Crosshair OFF
+- Reduce Particles ON
+- Post Screen Effects ON
+- Night Mode OFF
+- 30/60 Frame Per Seconds (Prefer 60)
 """
 m = PyMouse()
 k = PyKeyboard()
@@ -27,6 +35,7 @@ def main():
         else:  # Wait until time warp will be available
             if time.time() - timer > 5:
                 timer = time.time()
+                getFocus()
                 buying(False)
             else:
                 time.sleep(1)
@@ -42,6 +51,12 @@ def checkTimeWarp():
         return True
     else:
         return False
+
+
+def getFocus():
+    _current_pos = m.position()
+    m.click(Cord.game[0], Cord.game[1])
+    m.move(_current_pos[0], _current_pos[1])
 
 
 def checkIfOrange():
@@ -68,9 +83,10 @@ def buying(first):
 
 
 def timeWarp():
-    print(datetime.now(), '   > TimeWarping #', counter)
     global counter
     counter += 1
+    # [0:19] skipping miliseconds after dot
+    print(str(datetime.now())[0:19], ' > TimeWarping #', counter, sep='')
     m.click(Cord.tw1[0], Cord.tw1[1])  # Time warp Button
     time.sleep(1)
     # print('Confirming')
