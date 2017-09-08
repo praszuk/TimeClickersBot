@@ -46,8 +46,7 @@ def checkTimeWarp():
         Cord.tw[0], Cord.tw[1], Cord.tw[2], Cord.tw[3]))
     a = numpy.array(image.getcolors())
     a = a.sum()
-    if 30000 <= a <= 32500:
-        # print('Sum grayscale of Time Warp button: ', a)
+    if 30000 <= a <= 32500:     # Grayscale of button
         return True
     else:
         return False
@@ -71,8 +70,6 @@ def checkIfOrange():
 
 
 def buying(first):
-    # print('Buying team members')
-    m.click(Cord.game[0], Cord.game[1])
     keys = ('G', 'F', 'D', 'S', 'A')
     if first:
         # After clean start keys must be in normal order to unlock guns
@@ -87,14 +84,11 @@ def timeWarp():
     counter += 1
     # [0:19] skipping miliseconds after dot
     print(str(datetime.now())[0:19], ' > TimeWarping #', counter, sep='')
-    m.click(Cord.tw1[0], Cord.tw1[1])  # Time warp Button
+    m.click(Cord.tw1[0], Cord.tw1[1])       # Time warp Button
     time.sleep(1)
-    # print('Confirming')
-    m.click(Cord.yes[0], Cord.yes[1])  # Confiming Time warp action
+    m.click(Cord.yes[0], Cord.yes[1])       # Confiming Time warp action
     time.sleep(2)
-    # print('Skipping artefacts')
-    m.click(Cord.start[0], Cord.start[1])
-    # print('CleanStart')
+    m.click(Cord.start[0], Cord.start[1])   # Skipping artefacts
     time.sleep(6)
     cleanStart()
 
@@ -109,12 +103,10 @@ def cleanStart():
         m.click(Cord.abili[0], Cord.abili[1])
         time.sleep(.1)
     # Activate all abilities:
-    k.tap_key(k.space)
-    time.sleep(.1)
-    k.tap_key('7')
-    time.sleep(.1)
-    k.tap_key('0')
-    time.sleep(.1)
+    keys = (k.space, '7', '0')
+    for key in keys:
+        k.tap_key(key)
+        time.sleep(.1)
     # Hire each team member
     buying(True)
     # Set Idle Mode to true
