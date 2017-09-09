@@ -25,6 +25,7 @@ m = PyMouse()
 k = PyKeyboard()
 
 counter = 0
+session_start_time = datetime.now()
 
 
 def main():
@@ -35,7 +36,6 @@ def main():
         else:  # Wait until time warp will be available
             if time.time() - timer > 5:
                 timer = time.time()
-                getFocus()
                 buying(False)
             else:
                 time.sleep(1)
@@ -52,12 +52,6 @@ def checkTimeWarp():
         return False
 
 
-def getFocus():
-    _current_pos = m.position()
-    m.click(Cord.game[0], Cord.game[1])
-    m.move(_current_pos[0], _current_pos[1])
-
-
 def checkIfOrange():
     image = ImageOps.grayscale(grab_screen(
         Cord.abili1[0], Cord.abili1[1], Cord.abili1[0]+1, Cord.abili1[1]+1))
@@ -71,9 +65,10 @@ def checkIfOrange():
 
 def buying(first):
     keys = ('G', 'F', 'D', 'S', 'A')
+    # After clean start keys must be in normal order to unlock guns
     if first:
-        # After clean start keys must be in normal order to unlock guns
         keys = reversed(keys)
+    m.click(Cord.game[0], Cord.game[1])
     for key in keys:
         k.tap_key(key)
         time.sleep(.1)
@@ -82,10 +77,14 @@ def buying(first):
 def timeWarp():
     global counter
     counter += 1
-    # [0:19] skipping miliseconds after dot
-    print(str(datetime.now())[0:19], ' > TimeWarping #', counter, sep='')
+    current_time = datetime.now()
+    # [0:19]/[0:7] skipping miliseconds after dot withdate/without
+    print(str(current_time)[0:19], ' > TimeWarping #', counter,
+          ' Took: ', str(current_time-session_start_time)[0:7], sep='')
+    img = grab_screen(Cord.base[0], Cord.base[1], Cord.base[2], Cord.base[3])
+    img.save('screenshots/TimeWarp_' + str(counter) + '.png', 'PNG')
     m.click(Cord.tw1[0], Cord.tw1[1])       # Time warp Button
-    time.sleep(1)
+    time.sleep(2)
     m.click(Cord.yes[0], Cord.yes[1])       # Confiming Time warp action
     time.sleep(2)
     m.click(Cord.start[0], Cord.start[1])   # Skipping artefacts
@@ -94,7 +93,9 @@ def timeWarp():
 
 
 def cleanStart():
-    # print('Buying abilities and pistol upgrades')
+    global session_start_time
+    session_start_time = datetime.now()
+    # Buying abilities and pistol upgrades
     for i in range(13):
         m.click(Cord.pistol[0], Cord.pistol[1])
         time.sleep(.1)
