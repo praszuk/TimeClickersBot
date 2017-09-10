@@ -1,7 +1,7 @@
 import ctypes
 from PIL import Image
 
-path = "/home/pawel/Dokumenty/Python/TimeClickers/C/prtscn.so"
+path = "C/prtscn.so"
 grab = ctypes.CDLL(path)
 
 

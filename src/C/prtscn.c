@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <X11/X.h>
 #include <X11/Xutil.h>
-//Compile hint: gcc -shared -O3 -lX11 -fPIC -Wl,-soname,prtscn -o prtscn.so prtscn.c
+//https://stackoverflow.com/questions/69645/take-a-screenshot-via-a-python-script-linux
+//gcc -shared -O3 -Wall -fPIC -Wl,-soname,prtscn -o prtscn.so prtscn.c -lX11
 
 void getScreen(const int, const int, const int, const int, unsigned char *);
 void getScreen(const int xx,const int yy,const int W, const int H, /*out*/ unsigned char * data)
