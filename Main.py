@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import time
 from GrabScreen import grab_screen
 from Coords import Cord
@@ -31,7 +32,7 @@ session_start_time = datetime.now()
 def main():
     timer = time.time()
     while True:
-        if checkTimeWarp() and checkIfOrange() is False:
+        if checkTimeWarp() and abilitiesAreActive() is False:
             timeWarp()
         else:  # Wait until time warp will be available
             if time.time() - timer > 5:
@@ -52,15 +53,28 @@ def checkTimeWarp():
         return False
 
 
-def checkIfOrange():
+def abilitiesAreActive():
+    # checking 3 points to prevent fake ready caused by crosshair
+    arr = []
     image = ImageOps.grayscale(grab_screen(
-        Cord.abili1[0], Cord.abili1[1], Cord.abili1[0]+1, Cord.abili1[1]+1))
+        Cord.ability1[0], Cord.ability1[1],
+        Cord.ability1[0]+1, Cord.ability1[1]+1))
     a = numpy.array(image.getcolors())
-    a = a.sum()
-    if a < 170:
-        return False
-    else:
-        return True
+    arr.append(a.sum())
+    image = ImageOps.grayscale(grab_screen(
+        Cord.ability2[0], Cord.ability2[1],
+        Cord.ability2[0]+1, Cord.ability2[1]+1))
+    a = numpy.array(image.getcolors())
+    arr.append(a.sum())
+    image = ImageOps.grayscale(grab_screen(
+        Cord.ability6[0], Cord.ability6[1],
+        Cord.ability6[0]+1, Cord.ability6[1]+1))
+    a = numpy.array(image.getcolors())
+    arr.append(a.sum())
+    for val in arr:
+        if val > 170:
+            return True
+    return False
 
 
 def buying(first):
@@ -101,7 +115,7 @@ def cleanStart():
         time.sleep(.1)
     time.sleep(.5)
     for i in range(10):
-        m.click(Cord.abili[0], Cord.abili[1])
+        m.click(Cord.ability[0], Cord.ability[1])
         time.sleep(.1)
     # Activate all abilities:
     keys = (k.space, '7', '0')
