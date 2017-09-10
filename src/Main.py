@@ -7,21 +7,7 @@ from PIL import ImageOps
 from pymouse import PyMouse
 from pykeyboard import PyKeyboard
 from datetime import datetime
-"""
-app 1280x768 windowed moved to blocking by side and upper panel
-(start pos on ubuntu 16.04)
-first pixel of game(65,52)
-last pixel of game(1344,819)
 
-settings in game:
-- Simplified Notation (Default)
-- Screen Shake OFF
-- Custom Crosshair OFF
-- Reduce Particles ON
-- Post Screen Effects ON
-- Night Mode OFF
-- 30/60 Frame Per Seconds (Prefer 60)
-"""
 m = PyMouse()
 k = PyKeyboard()
 
