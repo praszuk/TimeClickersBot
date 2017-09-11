@@ -29,8 +29,7 @@ def main():
 
 
 def checkTimeWarp():
-    image = ImageOps.grayscale(grab_screen(
-        Cord.tw[0], Cord.tw[1], Cord.tw[2], Cord.tw[3]))
+    image = ImageOps.grayscale(grab_screen(*Cord.tw))
     a = numpy.array(image.getcolors())
     a = a.sum()
     if 30000 <= a <= 32500:     # Grayscale of button
@@ -40,24 +39,21 @@ def checkTimeWarp():
 
 
 def abilitiesAreActive():
-    # checking 3 points to prevent fake ready caused by crosshair
-    arr = []
-    image = ImageOps.grayscale(grab_screen(
-        Cord.ability1[0], Cord.ability1[1],
-        Cord.ability1[0]+1, Cord.ability1[1]+1))
-    a = numpy.array(image.getcolors())
-    arr.append(a.sum())
-    image = ImageOps.grayscale(grab_screen(
-        Cord.ability2[0], Cord.ability2[1],
-        Cord.ability2[0]+1, Cord.ability2[1]+1))
-    a = numpy.array(image.getcolors())
-    arr.append(a.sum())
-    image = ImageOps.grayscale(grab_screen(
-        Cord.ability6[0], Cord.ability6[1],
-        Cord.ability6[0]+1, Cord.ability6[1]+1))
-    a = numpy.array(image.getcolors())
-    arr.append(a.sum())
-    for val in arr:
+    # checking 3 points to prevent fake ready caused by:
+    # - crosshair
+    # - mouse moved (notification)
+    # - other random thing
+    sumOfPixels = []
+    points = [(*Cord.ability1, Cord.ability1[0]+1, Cord.ability1[1]+1),
+              (*Cord.ability2, Cord.ability2[0]+1, Cord.ability2[1]+1),
+              (*Cord.ability6, Cord.ability6[0]+1, Cord.ability6[1]+1)]
+
+    for point in points:
+        img = ImageOps.grayscale(grab_screen(*point))
+        a = numpy.array(img.getcolors())
+        sumOfPixels.append(a.sum())
+
+    for val in sumOfPixels:
         if val > 170:
             return True
     return False
@@ -68,7 +64,7 @@ def buying(first):
     # After clean start keys must be in normal order to unlock guns
     if first:
         keys = reversed(keys)
-    m.click(Cord.game[0], Cord.game[1])
+    m.click(*Cord.game)
     for key in keys:
         k.tap_key(key)
         time.sleep(.1)
@@ -81,15 +77,15 @@ def timeWarp():
     # [0:19]/[0:7] skipping miliseconds after dot withdate/without
     print(str(current_time)[0:19], ' > TimeWarping #', counter,
           ' Took: ', str(current_time-session_start_time)[0:7], sep='')
-    img = grab_screen(Cord.base[0], Cord.base[1], Cord.base[2], Cord.base[3])
+    img = grab_screen(*Cord.base)
     img.save('../screenshots/TimeWarp_' + str(counter) + '.png', 'PNG')
-    m.click(Cord.tw1[0], Cord.tw1[1])       # Time warp Button
+    m.click(*Cord.tw1)      # Time warp Button
     time.sleep(2)
-    m.click(Cord.yes[0], Cord.yes[1])       # Confiming Time warp action
+    m.click(*Cord.yes)      # Confiming Time warp action
     time.sleep(2)
-    m.click(Cord.start[0], Cord.start[1])   # Skipping artefacts
+    m.click(*Cord.start)    # Skipping artefacts
     time.sleep(6)
-    cleanStart()
+    cleanStart()            # Start again
 
 
 def cleanStart():
@@ -97,11 +93,11 @@ def cleanStart():
     session_start_time = datetime.now()
     # Buying abilities and pistol upgrades
     for i in range(13):
-        m.click(Cord.pistol[0], Cord.pistol[1])
+        m.click(*Cord.pistol)
         time.sleep(.1)
     time.sleep(.5)
     for i in range(10):
-        m.click(Cord.ability[0], Cord.ability[1])
+        m.click(*Cord.ability)
         time.sleep(.1)
     # Activate all abilities:
     keys = (k.space, '7', '0')
