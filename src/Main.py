@@ -82,7 +82,7 @@ def timeWarp():
     print(str(current_time)[0:19], ' > TimeWarping #', counter,
           ' Took: ', str(current_time-session_start_time)[0:7], sep='')
     img = grab_screen(Cord.base[0], Cord.base[1], Cord.base[2], Cord.base[3])
-    img.save('screenshots/TimeWarp_' + str(counter) + '.png', 'PNG')
+    img.save('../screenshots/TimeWarp_' + str(counter) + '.png', 'PNG')
     m.click(Cord.tw1[0], Cord.tw1[1])       # Time warp Button
     time.sleep(2)
     m.click(Cord.yes[0], Cord.yes[1])       # Confiming Time warp action
