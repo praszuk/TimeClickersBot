@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-import time
-from GrabScreen import grab_screen
 from Coords import Cord
+
+from datetime import datetime
+import time
+
+from GrabScreen import grab_screen
 import numpy
 from PIL import ImageOps
-from pymouse import PyMouse
-from pykeyboard import PyKeyboard
-from datetime import datetime
 
-m = PyMouse()
-k = PyKeyboard()
+from pyautogui import click, typewrite
 
 counter = 0
 session_start_time = datetime.now()
@@ -43,11 +42,12 @@ def abilitiesAreActive():
     # - crosshair
     # - mouse moved (notification)
     # - other random thing
-    sumOfPixels = []
+
     points = [(*Cord.ability1, Cord.ability1[0]+1, Cord.ability1[1]+1),
               (*Cord.ability2, Cord.ability2[0]+1, Cord.ability2[1]+1),
               (*Cord.ability6, Cord.ability6[0]+1, Cord.ability6[1]+1)]
 
+    sumOfPixels = []
     for point in points:
         img = ImageOps.grayscale(grab_screen(*point))
         a = numpy.array(img.getcolors())
@@ -64,10 +64,8 @@ def buying(first):
     # After clean start keys must be in normal order to unlock guns
     if first:
         keys = reversed(keys)
-    m.click(*Cord.game)
-    for key in keys:
-        k.tap_key(key)
-        time.sleep(.1)
+    click(*Cord.game)
+    typewrite(keys, interval=0.1)
 
 
 def timeWarp():
@@ -79,11 +77,11 @@ def timeWarp():
           ' Took: ', str(current_time-session_start_time)[0:7], sep='')
     img = grab_screen(*Cord.base)
     img.save('../screenshots/TimeWarp_' + str(counter) + '.png', 'PNG')
-    m.click(*Cord.tw1)      # Time warp Button
+    click(*Cord.tw1)      # Time warp Button
     time.sleep(2)
-    m.click(*Cord.yes)      # Confiming Time warp action
+    click(*Cord.yes)      # Confiming Time warp action
     time.sleep(2)
-    m.click(*Cord.start)    # Skipping artefacts
+    click(*Cord.start)    # Skipping artefacts
     time.sleep(6)
     cleanStart()            # Start again
 
@@ -92,25 +90,15 @@ def cleanStart():
     global session_start_time
     session_start_time = datetime.now()
     # Buying abilities and pistol upgrades
-    for i in range(13):
-        m.click(*Cord.pistol)
-        time.sleep(.1)
+    click(*Cord.pistol, clicks=13, interval=0.1)
     time.sleep(.5)
-    for i in range(10):
-        m.click(*Cord.ability)
-        time.sleep(.1)
+    click(*Cord.ability, clicks=10, interval=0.1)
     # Activate all abilities:
-    keys = (k.space, '7', '0')
-    for key in keys:
-        k.tap_key(key)
-        time.sleep(.1)
+    typewrite(('space', '7', '0'), interval=0.1)
     # Hire each team member
     buying(True)
     # Set Idle Mode to true
-    keys = ('Q', 'W', 'E')
-    for key in keys:
-        time.sleep(.1)
-        k.tap_key(key)
+    typewrite(('Q', 'W', 'E'), interval=0.1)
     # To prevent auto fake time warping cause delay of changing graphic.
     time.sleep(2)
 
