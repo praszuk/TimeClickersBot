@@ -1,0 +1,3 @@
+PyAutoGUI==0.9.36
+Pillow==4.2.1
+numpy==1.13.1
