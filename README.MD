@@ -4,7 +4,7 @@ TimeClickersBot can help you farm Time Cubes or Time Weapons.
 ### How it works?
 It's buying *Team Members* and it's waiting until your bonus time will be ended and you will get some Time Cubes. Then it makes *Time Warp* and starting over again.
 
-This program is for players which have at least **Defender 10**  achievement unlocked. Of course it can be used without it, but it can not be efficient.
+This program is for players, who have at least **Defender 10**  achievement unlocked. Of course it can be used without it, but it can not be efficient.
 
 The main strategy is investing in skills: **Starting Gold** and **Abilities Duration**.
 More in the [Features section](#features).
@@ -20,8 +20,9 @@ More in the [Features section](#features).
 
 ### Setup
 App 1280x768 windowed moved to blocking by side and upper panel (default).
-(start position on Ubuntu 16.04)
-first pixel of game(65,52), last pixel of game(1344,819)
+Start position on Ubuntu 16.04:
+- first pixel of game (65,52)
+- last pixel of game (1344,819)
 
 Settings in game:
 - Simplified Notation (Default)

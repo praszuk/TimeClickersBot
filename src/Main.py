@@ -28,9 +28,10 @@ def main():
 
 
 def checkTimeWarp():
-    image = ImageOps.grayscale(grab_screen(*Cord.tw))
+    image = ImageOps.grayscale(grab_screen(*Cord.TIME_WARP_A))
     a = numpy.array(image.getcolors())
     a = a.sum()
+    # print('Time warp button (', *Cord.TIME_WARP_A, '): ', a) "debug"
     if 30000 <= a <= 32500:     # Grayscale of button
         return True
     else:
@@ -38,33 +39,33 @@ def checkTimeWarp():
 
 
 def abilitiesAreActive():
-    # checking 3 points to prevent fake ready caused by:
+    # checking all points to prevent fake ready caused by:
     # - crosshair
     # - mouse moved (notification)
     # - other random thing
 
-    points = [(*Cord.ability1, Cord.ability1[0]+1, Cord.ability1[1]+1),
-              (*Cord.ability2, Cord.ability2[0]+1, Cord.ability2[1]+1),
-              (*Cord.ability6, Cord.ability6[0]+1, Cord.ability6[1]+1)]
-
+    points = [(Cord.A1), (Cord.A2), (Cord.A3),
+              (Cord.A4), (Cord.A5), (Cord.A6),
+              (Cord.A7), (Cord.A8), (Cord.A9),
+              (Cord.A0)]
     sumOfPixels = []
     for point in points:
         img = ImageOps.grayscale(grab_screen(*point))
         a = numpy.array(img.getcolors())
         sumOfPixels.append(a.sum())
-
+    # print('Abilites: ', sumOfPixels)         # "debug" for testing
     for val in sumOfPixels:
         if val > 170:
             return True
     return False
 
 
-def buying(first):
+def buying(reverse=False):
     keys = ('G', 'F', 'D', 'S', 'A')
     # After clean start keys must be in normal order to unlock guns
-    if first:
+    if reverse:
         keys = reversed(keys)
-    click(*Cord.game)
+    click(*Cord.FOCUS)
     typewrite(keys, interval=0.1)
 
 
@@ -75,24 +76,24 @@ def timeWarp():
     # [0:19]/[0:7] skipping miliseconds after dot withdate/without
     print(str(current_time)[0:19], ' > TimeWarping #', counter,
           ' Took: ', str(current_time-session_start_time)[0:7], sep='')
-    img = grab_screen(*Cord.base)
+    img = grab_screen(*Cord.WHOLE_WINDOW)
     img.save('../screenshots/TimeWarp_' + str(counter) + '.png', 'PNG')
-    click(*Cord.tw1)      # Time warp Button
+    click(*Cord.TIME_WARP_B)             # Time warp Button
     time.sleep(2)
-    click(*Cord.yes)      # Confiming Time warp action
+    click(*Cord.CONFIRM_YES_B)           # Confiming Time warp action
     time.sleep(2)
-    click(*Cord.start)    # Skipping artefacts
+    click(*Cord.START_NEW_TIMELINE_B)    # Skipping artefacts
     time.sleep(6)
-    cleanStart()            # Start again
+    cleanStart()                         # Start again
 
 
 def cleanStart():
     global session_start_time
     session_start_time = datetime.now()
     # Buying abilities and pistol upgrades
-    click(*Cord.pistol, clicks=13, interval=0.1)
+    click(*Cord.PISTOL_B, clicks=13, interval=0.1)
     time.sleep(.5)
-    click(*Cord.ability, clicks=10, interval=0.1)
+    click(*Cord.TIME_WARP_B, clicks=10, interval=0.1)
     # Activate all abilities:
     typewrite(('space', '7', '0'), interval=0.1)
     # Hire each team member

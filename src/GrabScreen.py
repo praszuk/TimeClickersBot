@@ -25,6 +25,10 @@ Compiled from C it has better performance than pyautogui.
 
 def grab_screen_linux(x1, y1, x2, y2):
     w, h = x2-x1, y2-y1
+    if w == 0:
+        w = 1
+    if h == 0:
+        h = 1
     size = w * h
     objlength = size * 3
 
