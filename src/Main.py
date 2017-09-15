@@ -39,15 +39,12 @@ def checkTimeWarp():
 
 
 def abilitiesAreActive():
-    # checking all points to prevent fake ready caused by:
+    # checking points to prevent fake ready caused by:
     # - crosshair
     # - mouse moved (notification)
     # - other random thing
 
-    points = [(Cord.A1), (Cord.A2), (Cord.A3),
-              (Cord.A4), (Cord.A5), (Cord.A6),
-              (Cord.A7), (Cord.A8), (Cord.A9),
-              (Cord.A0)]
+    points = [(Cord.A1), (Cord.A2), (Cord.A5), (Cord.A6)]
     sumOfPixels = []
     for point in points:
         img = ImageOps.grayscale(grab_screen(*point))
