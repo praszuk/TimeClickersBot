@@ -29,7 +29,7 @@ Settings in game:
 - Screen Shake OFF
 - Custom crosshair OFF
 - Reduce Particles ON
-- Post Screen Effects ON
+- Post Screen Effects OFF - It looks ugly, but it is the most important setting.
 - Night Mode OFF
 - 30/60 Frame Per Seconds (Prefer 60)
 

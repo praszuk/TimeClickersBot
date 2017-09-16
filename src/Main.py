@@ -5,10 +5,7 @@ from datetime import datetime
 import time
 
 from GrabScreen import grab_screen
-import numpy
-from PIL import ImageOps
-
-from pyautogui import click, typewrite
+from pyautogui import click, typewrite, pixelMatchesColor
 
 counter = 0
 session_start_time = datetime.now()
@@ -28,11 +25,7 @@ def main():
 
 
 def checkTimeWarp():
-    image = ImageOps.grayscale(grab_screen(*Cord.TIME_WARP_A))
-    a = numpy.array(image.getcolors())
-    a = a.sum()
-    # print('Time warp button (', *Cord.TIME_WARP_A, '): ', a) "debug"
-    if 30000 <= a <= 32500:     # Grayscale of button
+    if pixelMatchesColor(*Cord.TIME_WARP_A, (41, 255, 1), tolerance=40):
         return True
     else:
         return False
@@ -45,14 +38,9 @@ def abilitiesAreActive():
     # - other random thing
 
     points = [(Cord.A1), (Cord.A2), (Cord.A5), (Cord.A6)]
-    sumOfPixels = []
+
     for point in points:
-        img = ImageOps.grayscale(grab_screen(*point))
-        a = numpy.array(img.getcolors())
-        sumOfPixels.append(a.sum())
-    # print('Abilites: ', sumOfPixels)         # "debug" for testing
-    for val in sumOfPixels:
-        if val > 170:
+        if pixelMatchesColor(*point, (255, 123, 0), tolerance=50):
             return True
     return False
 

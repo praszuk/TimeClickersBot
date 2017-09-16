@@ -11,25 +11,39 @@ class Cord:
     """ Blue lines left/right to counting levels,
         Counter comapring screens,
         if at this coord lines are static blue,
-        it means there is no animation of changing level. """
-    BLUE_LINE_L = (602+XY[0], 14+XY[1], 602+XY[0], 75+XY[1])
-    BLUE_LINE_R = (677+XY[0], 14+XY[1], 677+XY[0], 75+XY[1])
+        it means there is no animation of changing level.
 
-    """ Time Warp button Area - to get color if is ready to time warp. """
-    TIME_WARP_A = (1175+XY[0], 318+XY[1], 1255+XY[0], 368+XY[1])
+        Two points with color: RGB(6, 102, 235) (tolerance 30)
+        is enough, to know, if there are 2 static lines. """
+    BLUE_LINE_L = (602+XY[0], 40+XY[1])  # , 602+XY[0], 75+XY[1])
+    BLUE_LINE_R = (677+XY[0], 40+XY[1])  # , 677+XY[0], 75+XY[1])
 
-    """ All abilities 1-10. Diffrent coordinates to get always correct
-        color to i.e.: check if they are activated. """
-    A1 = (968+XY[0],  420+XY[1], 968+XY[0],  421+XY[1])
-    A2 = (1029+XY[0], 430+XY[1], 1029+XY[0], 431+XY[1])
-    A3 = (1091+XY[0], 400+XY[1], 1091+XY[0], 401+XY[1])
-    A4 = (1152+XY[0], 400+XY[1], 1152+XY[0], 401+XY[1])
-    A5 = (1214+XY[0], 420+XY[1], 1214+XY[0], 421+XY[1])
-    A6 = (968+XY[0],  460+XY[1], 968+XY[0],  461+XY[1])
-    A7 = (1029+XY[0], 470+XY[1], 1029+XY[0], 471+XY[1])
-    A8 = (1091+XY[0], 470+XY[1], 1091+XY[0], 471+XY[1])
-    A9 = (1152+XY[0], 470+XY[1], 1152+XY[0], 471+XY[1])
-    A0 = (1213+XY[0], 470+XY[1], 1213+XY[0], 471+XY[1])
+    """ Time Warp button Area - to get color if is ready to time warp.
+        Button has 2 states:
+        - available  (light green): RGB(41, 255, 1) (tolerance 40)
+        - unavailable (dark green): RGB(10, 64, 0)  (tolerance 40). """
+    TIME_WARP_A = (1175+XY[0], 340+XY[1])
+
+    """ All abilities 1-10. Diffrent coordinates to get color of point
+    and check to get information about it status.
+
+    Points below, should have this value:
+    - activated (orange): RGB(255, 123, 0) (tolerance max 50)
+    - available (blue):   RGB(0, 103, 255) (tolerance max 50)
+
+    There is one more status "regeneration" RGB(0, 52, 128),
+    but it's not needed. """
+
+    A1 = (968+XY[0],  420+XY[1])  # , 968+XY[0],  421+XY[1])
+    A2 = (1030+XY[0], 430+XY[1])  # , 1030+XY[0], 431+XY[1])
+    A3 = (1091+XY[0], 430+XY[1])  # , 1091+XY[0], 431+XY[1])
+    A4 = (1153+XY[0], 430+XY[1])  # , 1153+XY[0], 431+XY[1])
+    A5 = (1214+XY[0], 430+XY[1])  # , 1214+XY[0], 431+XY[1])
+    A6 = (968+XY[0],  484+XY[1])  # , 968+XY[0],  485+XY[1])
+    A7 = (1030+XY[0], 484+XY[1])  # , 1030+XY[0], 485+XY[1])
+    A8 = (1091+XY[0], 484+XY[1])  # , 1091+XY[0], 485+XY[1])
+    A9 = (1153+XY[0], 484+XY[1])  # , 1153+XY[0], 485+XY[1])
+    A0 = (1214+XY[0], 484+XY[1])  # , 1214+XY[0], 485+XY[1])
 
     # --------------- Area to click ----------------- #
 
