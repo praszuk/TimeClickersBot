@@ -15,31 +15,31 @@ More in the [Features section](#features).
 1. Download the newest version from [here](https://github.com/praszuk/TimeClickersBot/archive/master.zip).
 2. Extract files to a directory.
 3. You need at least Python3.5 and Python package manager, i.e. [pip](https://pip.pypa.io/en/stable/quickstart/) (you should own it if you have installed python) to install required packages.
-    - In console just go to project directory and type ```pip install -r requirements.txt```. You can use also [Virtualenv](https://virtualenv.pypa.io/en/stable/).
+    - In console just go to project directory and type ```pip install -r requirements.txt```. You can also use [Virtualenv](https://virtualenv.pypa.io/en/stable/).
     - TimeClickersBot uses [PyAutoGUI](https://pyautogui.readthedocs.io/en/latest/) module. To work properly, you need to install some packages, depending on your operating system. How to install [PyAutoGUI](https://pyautogui.readthedocs.io/en/latest/install.html).
 
 ### Setup
 App 1280x768 windowed moved to blocking by side and upper panel (default).
 Start position on Ubuntu 16.04:
-- first pixel of game (65,52)
-- last pixel of game (1344,819)
+- First pixel of game (65,52).
+- Last pixel of game (1344,819).
 
 Settings in game:
-- Simplified Notation (Default)
-- Screen Shake OFF
-- Custom crosshair OFF
-- Reduce Particles ON
+- Simplified Notation (Default).
+- Screen Shake OFF.
+- Custom crosshair OFF.
+- Reduce Particles ON.
 - Post Screen Effects OFF - It looks ugly, but it is the most important setting.
-- Night Mode OFF
-- 30/60 Frame Per Seconds (Prefer 60)
+- Night Mode OFF.
+- 30/60 Frame Per Seconds.
 
 If everything was set:
-- Go to TimeClickersBot/src/ directory and launch *Main*.
+- Go to TimeClickersBot/src/ directory and launch *Main* (in console).
 
 ### Features
-- Auto-buying
-- Auto-Time-Warping (with buying pistol, abilities and team members)
-- Checking if Time Warp is available (if some Time Cubes were gathered)
+- Auto-buying.
+- Auto-Time-Warping (with buying pistol, abilities and team members).
+- Checking if Time Warp is available (if some Time Cubes were gathered).
 - Checking if abilities are active.
 - Logging in console Time Warps with date and duration time of session.
 - Saving screenshots to file of last level before Time Warped.
