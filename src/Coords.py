@@ -10,7 +10,7 @@ class Coords:
     WHOLE_WINDOW = (0, 0, RESOLUTION[0], RESOLUTION[1])
 
     """ Blue lines left/right to counting levels,
-        Counter comapring screens,
+        Counter comparing screens,
         if at this coord lines are static blue,
         it means, there is no animation of changing level.
 
@@ -25,7 +25,7 @@ class Coords:
         - unavailable (dark green): RGB(10, 64, 0)  (tolerance 40). """
     TIME_WARP_A = (1175, 340)
 
-    """ All abilities 1-10. Diffrent coordinates to get color of point
+    """ All abilities 1-10. Different coordinates to get color of point
     and check to get information about it status.
 
     Points below, should have this value:

@@ -17,12 +17,12 @@ More in the [Features section](#features).
 3. You need at least Python3.5 and Python package manager, i.e. [pip](https://pip.pypa.io/en/stable/quickstart/) (you should own it if you have installed python) to install required packages.
     - In console just go to project directory and type ```pip install -r requirements.txt```. You can also use [Virtualenv](https://virtualenv.pypa.io/en/stable/).
     - TimeClickersBot uses [PyAutoGUI](https://pyautogui.readthedocs.io/en/latest/) module. To work properly, you need to install some packages, depending on your operating system. How to install [PyAutoGUI](https://pyautogui.readthedocs.io/en/latest/install.html).
+4. [Linux]:
+    - Program uses _xwininfo_ shell tool to get the position of the window. You should have installed it by default. Check it in terminal ```xwininfo -help```. If you have not, install it or use special arguments to pass coordinates of the window (TODO).
 
 ### Setup
-App 1280x768 windowed moved to blocking by side and upper panel (default).
-Start position on Ubuntu 16.04:
-- First pixel of game (65,52).
-- Last pixel of game (1344,819).
+- App 1280x768 windowed mode.
+- The Program should automatically detect upper-left corner. If not, check dependencies or pass additional arguments with the coordinates of the window (TODO - Currently edit Game.py/GameWindow.py file xD).
 
 Settings in game:
 - Simplified Notation (Default).
@@ -38,6 +38,7 @@ If everything was set:
 
 ### Features
 - Auto-buying.
+- Auto-detection position of the window on launch application.
 - Auto-Time-Warping (with buying pistol, abilities and team members).
 - Checking if Time Warp is available (if some Time Cubes were gathered).
 - Checking if abilities are active.

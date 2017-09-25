@@ -9,10 +9,11 @@ from pyautogui import click, typewrite, pixelMatchesColor
 
 
 class Game:
-    relative_point = get_relative_point()
+    relative_point = ()
 
-    def __init__(self):
+    def __init__(self, relative_point=get_relative_point()):
         self.time_warp_counter = 0
+        Game.relative_point = relative_point
 
 # -------------- Actions -------------- #
 
@@ -24,12 +25,12 @@ class Game:
         while True:
             if check_time_warp() and abilities_are_active() is False:
                 self.timeWarp()
+
+            if time.time() - self.last_buying_time > 5:
+                self.last_buying_time = time.time()
+                buying(False)
             else:
-                if time.time() - self.last_buying_time > 5:
-                    self.last_buying_time = time.time()
-                    buying(False)
-                else:
-                    time.sleep(1)
+                time.sleep(1)
 
     def timeWarp(self):
         self.time_warp_counter += 1
@@ -114,7 +115,6 @@ def grab_screen_in_game(x1, y1, x2, y2):
 
 
 def pixel_color_in_game(x, y, expectedRGBColor, tolerance=0):
-    print(Game.relative_point)
     x += Game.relative_point[0]
     y += Game.relative_point[1]
     return pixelMatchesColor(x, y, expectedRGBColor, tolerance=tolerance)
